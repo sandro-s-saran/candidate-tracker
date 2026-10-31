@@ -7,13 +7,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
 
 class CandidateTest {
 	
 	private Candidate candidate;
-	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 	@BeforeEach
 	void setUp() {
@@ -34,13 +32,14 @@ class CandidateTest {
     }
     
     @Test
-    void canAddNotetoCandidate() {
-    	candidate.addNote("Candidate was good.");
-    	String formattedDate1 = LocalDateTime.now().format(myFormatObj);
-    	assertEquals(formattedDate1 + ": Candidate was good.\n\n", candidate.getNote());
-    	candidate.addNote("Call candidate back");
-    	String formattedDate2 = LocalDateTime.now().format(myFormatObj);
-    	assertEquals(formattedDate1 + ": Candidate was good.\n\n" + formattedDate2 + ": Call candidate back\n\n", candidate.getNote());    	
-    	
+    void addNoteStoresTextAndTimestamp() {
+        Instant time = Instant.parse("2026-11-01T09:00:00Z");
+
+        candidate.addNote("Strong phone screen", time);
+
+        Note note = candidate.getNotes().get(0);
+        assertEquals("Strong phone screen", note.text());
+        assertEquals(time, note.createdAt());
     }
+    
 }
