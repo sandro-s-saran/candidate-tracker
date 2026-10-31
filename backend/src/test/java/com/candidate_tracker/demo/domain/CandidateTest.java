@@ -27,4 +27,14 @@ class CandidateTest {
 
         assertEquals(Stage.OFFER, candidate.getStage());
     }
+    
+    @Test
+    void canAddNotetoCandidate() {
+    	candidate.addNote("Candidate was good.");
+    	assertEquals("Candidate was good.", candidate.getNote());
+    	candidate.addNote("Call candidate back");
+    	assertEquals("Candidate was good.\n\nCall candidate back", candidate.getNote());
+    	
+    	
+    }
 }
