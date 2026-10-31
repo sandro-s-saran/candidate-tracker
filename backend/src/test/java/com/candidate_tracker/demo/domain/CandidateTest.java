@@ -6,9 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 class CandidateTest {
 	
 	private Candidate candidate;
+	DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
 	@BeforeEach
 	void setUp() {
@@ -31,10 +36,11 @@ class CandidateTest {
     @Test
     void canAddNotetoCandidate() {
     	candidate.addNote("Candidate was good.");
-    	assertEquals("Candidate was good.", candidate.getNote());
+    	String formattedDate1 = LocalDateTime.now().format(myFormatObj);
+    	assertEquals(formattedDate1 + ": Candidate was good.\n\n", candidate.getNote());
     	candidate.addNote("Call candidate back");
-    	assertEquals("Candidate was good.\n\nCall candidate back", candidate.getNote());
-    	
+    	String formattedDate2 = LocalDateTime.now().format(myFormatObj);
+    	assertEquals(formattedDate1 + ": Candidate was good.\n\n" + formattedDate2 + ": Call candidate back\n\n", candidate.getNote());    	
     	
     }
 }
