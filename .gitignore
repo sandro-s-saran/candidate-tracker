@@ -1,0 +1,32 @@
+# Backend build output
+target/
+*.class
+*.jar
+
+# Frontend dependencies and build output
+node_modules/
+dist/
+build/
+.next/
+
+# IDE and editor files
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs and local databases
+*.log
+*.mv.db
+*.trace.db
+
+# Secrets and local config (important!)
+.env
+.env.local
+application-local.properties
