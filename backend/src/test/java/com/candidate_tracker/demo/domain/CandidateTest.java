@@ -4,12 +4,27 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.BeforeEach;
+
 class CandidateTest {
+	
+	private Candidate candidate;
+
+	@BeforeEach
+	void setUp() {
+	    candidate = new Candidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+	}
 
     @Test
     void newCandidateStartsInAppliedStage() {
-        Candidate candidate = new Candidate("Ada Lovelace", "ada@example.com", "Software Engineer");
 
         assertEquals(Stage.APPLIED, candidate.getStage());
+    }
+    
+    @Test
+    void canMoveToAnyStageNotJustTheNextOne() {
+        candidate.moveTo(Stage.OFFER);
+
+        assertEquals(Stage.OFFER, candidate.getStage());
     }
 }

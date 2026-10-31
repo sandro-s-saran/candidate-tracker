@@ -15,4 +15,8 @@ public class Candidate {
     public Stage getStage() {
         return stage;
     }
+    
+    public void moveTo(Stage stage) {
+    	this.stage = stage;
+    }
 }
