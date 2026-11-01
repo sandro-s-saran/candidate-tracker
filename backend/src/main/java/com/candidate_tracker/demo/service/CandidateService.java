@@ -4,10 +4,13 @@ import java.time.Clock;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.candidate_tracker.demo.domain.Candidate;
 import com.candidate_tracker.demo.domain.Stage;
 import com.candidate_tracker.demo.repository.CandidateRepository;
 
+@Service
 public class CandidateService {
 	private CandidateRepository cr;
 	private Clock clock;
@@ -20,8 +23,7 @@ public class CandidateService {
 	public Candidate createCandidate(String name, String role, String email) {
 		Candidate candidate = new Candidate(name, role, email);
 		candidate.setCreatedAt(clock.instant());
-		cr.save(candidate);
-		return candidate;
+		return cr.save(candidate);
 	}
 	
 	public Candidate getCandidate(Long id) {
@@ -45,18 +47,19 @@ public class CandidateService {
 	            .toList();
 	}
 	
-	public void moveCandidate(Long id, Stage stage) {
+	public Candidate moveCandidate(Long id, Stage stage) {
 		Candidate candidate = this.getCandidate(id);
 		candidate.moveTo(stage);
+		return cr.save(candidate);
 	}
 	
-	public void addNote(Long id, String note) {
+	public Candidate addNote(Long id, String note) {
 		Candidate candidate = this.getCandidate(id);
 		candidate.addNote(note, clock.instant());
+		return cr.save(candidate);
 	}
 	
 	public void deleteCandidate(Long id) {
-		Candidate candidate = this.getCandidate(id);
 		cr.deleteById(id);
 	}
 	
