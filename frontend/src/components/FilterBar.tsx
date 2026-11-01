@@ -11,7 +11,7 @@ export default function FilterBar({ filters, onChange }: Props) {
   return (
     <section aria-label="Filters">
       <label>
-        Stage
+        Filter by Stage
         <select
           value={filters.stage ?? ""}
           onChange={(e) =>

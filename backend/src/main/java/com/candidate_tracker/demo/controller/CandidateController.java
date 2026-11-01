@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,9 +45,11 @@ public class CandidateController {
     }
     
     @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<Candidate> getAllCandidates(Stage stage,  String role,  SortField sortBy) {
-    	return service.list(stage, role, sortBy);
+    public List<Candidate> getAllCandidates(
+            @RequestParam(required = false) Stage stage,
+            @RequestParam(required = false) String role,
+            @RequestParam(name = "sort", defaultValue = "DATE_ADDED") SortField sortBy) {
+        return service.list(stage, role, sortBy);
     }
     
     @PatchMapping("/{id}/stage")

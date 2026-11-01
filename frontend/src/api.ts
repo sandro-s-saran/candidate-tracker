@@ -44,7 +44,7 @@ function jsonRequest(method: string, body: unknown): RequestInit {
 
 export function listCandidates(filters: CandidateFilters = {}): Promise<Candidate[]> {
   const params = new URLSearchParams();
-  if (filters.stage) params.set("STAGE", filters.stage);
+  if (filters.stage) params.set("stage", filters.stage);
   if (filters.role) params.set("role", filters.role);
   if (filters.sort) params.set("sort", filters.sort);
   const query = params.toString();

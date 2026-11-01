@@ -54,7 +54,7 @@ class SummaryControllerTest {
     @Test
     void candidateWithoutResumeTextHasNothingToSummarise() throws Exception {
         Candidate ada = candidateService.createCandidate(
-                "Ada Lovelace", "ada@example.com", "Software Engineer");
+                "Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         mockMvcWith((systemPrompt, userContent) -> {
             throw new IllegalStateException("should not be called");
