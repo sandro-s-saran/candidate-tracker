@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listCandidates } from "./api";
 import type { Candidate } from "./types";
+import CandidateForm from "./components/CandidateForm";
 
 export default function App() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
@@ -23,6 +24,12 @@ export default function App() {
           </li>
         ))}
       </ul>
+      <CandidateForm
+        onCreated={(created) =>
+          setCandidates((previous) => [...previous, created])
+        }
+      />
+      {error && <p role="alert">{error}</p>}
     </main>
   );
 }
