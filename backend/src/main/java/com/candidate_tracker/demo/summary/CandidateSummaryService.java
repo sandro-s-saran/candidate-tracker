@@ -1,5 +1,8 @@
 package com.candidate_tracker.demo.summary;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class CandidateSummaryService {
 	public static final int MAX_RESUME_CHARS = 12_000;
 	public static final int MAX_SUMMARY_CHARS = 1_000;
