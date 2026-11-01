@@ -42,7 +42,7 @@ public class CandidateService {
 
 	    return cr.findAll().stream()
 	            .filter(c -> stage == null || c.getStage() == stage)
-	            .filter(c -> role == null || c.getRoleAppliedFor().equalsIgnoreCase(role))
+	            .filter(c -> role == null || c.getRoleAppliedFor().toLowerCase().contains(role.toLowerCase()))
 	            .sorted(order)
 	            .toList();
 	}

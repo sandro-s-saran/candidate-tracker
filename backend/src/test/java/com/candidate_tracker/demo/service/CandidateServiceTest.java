@@ -184,4 +184,13 @@ class CandidateServiceTest {
         assertNull(created.getSource());
         assertNull(created.getResumeText());
     }
+    
+    @Test
+    void listFiltersByPartOfTheRole() {
+        saveThreeCandidates();
+
+        List<Candidate> result = service.list(null, "engineer", SortField.DATE_ADDED);
+
+        assertEquals(List.of("Alan Turing", "Ada Lovelace"), names(result));
+    }
 }
