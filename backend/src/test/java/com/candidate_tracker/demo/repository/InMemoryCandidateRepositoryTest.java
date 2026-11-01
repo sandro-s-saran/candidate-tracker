@@ -22,7 +22,7 @@ class InMemoryCandidateRepositoryTest {
     }
 
     private Candidate newCandidate(String name) {
-        return new Candidate(name, "test@example.com", "Software Engineer");
+        return new Candidate(name, "test@example.com", "Software Engineer", null, null, null);
     }
 
     @Test

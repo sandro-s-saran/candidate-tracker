@@ -3,4 +3,7 @@ package com.candidate_tracker.demo.controller;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record CreateCandidateRequest(@NotBlank String name, @NotBlank @Email String email, @NotBlank String roleAppliedFor) {}
+public record CreateCandidateRequest(@NotBlank String name, @NotBlank @Email String email, @NotBlank String roleAppliedFor, 
+		 String phone, String source, String resumeText) {}
+
+

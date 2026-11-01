@@ -20,8 +20,8 @@ public class CandidateService {
 		this.clock = clock;
 	}
 	
-	public Candidate createCandidate(String name, String role, String email) {
-		Candidate candidate = new Candidate(name, role, email);
+	public Candidate createCandidate(String name, String email, String roleAppliedFor, String phone, String source, String resumeText) {
+		Candidate candidate = new Candidate(name, email, roleAppliedFor, phone, source, resumeText);
 		candidate.setCreatedAt(clock.instant());
 		return cr.save(candidate);
 	}

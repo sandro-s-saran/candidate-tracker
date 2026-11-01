@@ -17,7 +17,7 @@ class CandidateTest {
 
     @BeforeEach
     void setUp() {
-        candidate = new Candidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        candidate = new Candidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
     }
 
     @Test

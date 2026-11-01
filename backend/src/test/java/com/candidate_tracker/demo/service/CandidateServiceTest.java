@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -33,7 +34,7 @@ class CandidateServiceTest {
     }
 
     private Candidate save(String name, String role, Stage stage, int hoursAgo) {
-        Candidate candidate = new Candidate(name, "test@example.com", role);
+        Candidate candidate = new Candidate(name, "test@example.com", role, null, null, null);
         candidate.moveTo(stage);
         candidate.setCreatedAt(NOW.minus(hoursAgo, ChronoUnit.HOURS));
         return repository.save(candidate);
@@ -52,7 +53,7 @@ class CandidateServiceTest {
 
     @Test
     void createCandidateSavesItWithIdStageAndDateAdded() {
-        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         assertNotNull(created.getId());
         assertEquals(Stage.APPLIED, created.getStage());
@@ -62,7 +63,7 @@ class CandidateServiceTest {
 
     @Test
     void getCandidateReturnsTheCandidate() {
-        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         assertEquals(created, service.getCandidate(created.getId()));
     }
@@ -128,7 +129,7 @@ class CandidateServiceTest {
 
     @Test
     void moveCandidateChangesTheStage() {
-        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         service.moveCandidate(created.getId(), Stage.INTERVIEW);
 
@@ -142,7 +143,7 @@ class CandidateServiceTest {
 
     @Test
     void addNoteTimestampsItWithTheServiceClock() {
-        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         service.addNote(created.getId(), "Strong phone screen");
 
@@ -158,10 +159,29 @@ class CandidateServiceTest {
 
     @Test
     void deleteCandidateRemovesIt() {
-        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer");
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
 
         service.deleteCandidate(created.getId());
 
         assertTrue(repository.findById(created.getId()).isEmpty());
+    }
+    
+    @Test
+    void createCandidateStoresOptionalDetails() {
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer",
+                "0400 000 000", "LinkedIn", "Built a compiler in Java.");
+
+        assertEquals("0400 000 000", created.getPhone());
+        assertEquals("LinkedIn", created.getSource());
+        assertEquals("Built a compiler in Java.", created.getResumeText());
+    }
+
+    @Test
+    void createCandidateWithoutOptionalDetailsLeavesThemEmpty() {
+        Candidate created = service.createCandidate("Ada Lovelace", "ada@example.com", "Software Engineer", null, null, null);
+
+        assertNull(created.getPhone());
+        assertNull(created.getSource());
+        assertNull(created.getResumeText());
     }
 }

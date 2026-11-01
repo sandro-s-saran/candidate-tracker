@@ -38,7 +38,7 @@ class CandidateControllerTest {
     }
 
     private Candidate createCandidate(String name, String role) {
-        return service.createCandidate(name, "test@example.com", role);
+        return service.createCandidate(name, "test@example.com", role, null, null, null);
     }
 
     @Test
@@ -194,5 +194,19 @@ class CandidateControllerTest {
 
         mockMvc.perform(get("/api/candidates/{id}", ada.getId()))
                 .andExpect(status().isNotFound());
+    }
+    
+    @Test
+    void createCandidateAcceptsOptionalDetails() throws Exception {
+        mockMvc.perform(post("/api/candidates")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"name": "Ada Lovelace", "email": "ada@example.com", "roleAppliedFor": "Software Engineer",
+                                 "phone": "0400 000 000", "source": "LinkedIn", "resumeText": "Built a compiler in Java."}
+                                """))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.phone").value("0400 000 000"))
+                .andExpect(jsonPath("$.source").value("LinkedIn"))
+                .andExpect(jsonPath("$.resumeText").value("Built a compiler in Java."));
     }
 }
