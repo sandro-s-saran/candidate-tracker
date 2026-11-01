@@ -45,7 +45,7 @@ public class CandidateController {
     
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<Candidate> getAllCandidates(Stage stage, String role, SortField sortBy) {
+    public List<Candidate> getAllCandidates(Stage stage,  String role,  SortField sortBy) {
     	return service.list(stage, role, sortBy);
     }
     
