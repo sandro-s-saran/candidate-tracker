@@ -1,4 +1,4 @@
-import type { Candidate } from "./types";
+import type { Candidate, Stage } from "./types";
 
 export interface NewCandidate {
   name: string;
@@ -9,8 +9,22 @@ export interface NewCandidate {
   resumeText?: string;
 }
 
-export async function listCandidates(): Promise<Candidate[]> {
-  const response = await fetch("/api/candidates");
+export type SortField = "DATE_ADDED" | "STAGE";
+
+export interface CandidateFilters {
+  stage?: Stage;
+  role?: string;
+  sort?: SortField;
+}
+
+export async function listCandidates(filters: CandidateFilters = {}): Promise<Candidate[]> {
+  const params = new URLSearchParams();
+  if (filters.stage) params.set("stage", filters.stage);
+  if (filters.role) params.set("role", filters.role);
+  if (filters.sort) params.set("sort", filters.sort);
+  const query = params.toString();
+
+  const response = await fetch(`/api/candidates${query ? `?${query}` : ""}`);
   if (!response.ok) {
     throw new Error(`Failed to load candidates (${response.status})`);
   }

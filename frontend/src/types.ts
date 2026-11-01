@@ -1,4 +1,5 @@
-export type Stage = "APPLIED" | "SCREENING" | "INTERVIEW" | "OFFER" | "REJECTED";
+export const STAGES = ["APPLIED", "SCREENING", "INTERVIEW", "OFFER", "REJECTED"] as const;
+export type Stage = (typeof STAGES)[number];
 
 export interface Note {
   text: string;
