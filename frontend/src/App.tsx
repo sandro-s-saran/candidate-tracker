@@ -1,51 +1,17 @@
-import { useEffect, useState } from "react";
-import { listCandidates } from "./api";
-import type { CandidateFilters } from "./api";
-import CandidateForm from "./components/CandidateForm";
-import FilterBar from "./components/FilterBar";
-import type { Candidate } from "./types";
+import { Route, Routes } from "react-router";
+import CandidateDetailPage from "./components/CandidateDetailPage";
+import Layout from "./Layout";
+import NewCandidatePage from "./components/NewCandidatePage";
 
 export default function App() {
-  const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<CandidateFilters>({ sort: "DATE_ADDED" });
-  const [reloadKey, setReloadKey] = useState(0);
-
-  useEffect(() => {
-    let ignore = false;
-    listCandidates(filters)
-      .then((data) => {
-        if (!ignore) {
-          setCandidates(data);
-          setError(null);
-        }
-      })
-      .catch((e: Error) => {
-        if (!ignore) setError(e.message);
-      });
-    return () => {
-      ignore = true;
-    };
-  }, [filters, reloadKey]);
-
   return (
-    <main>
-      <h1>Candidate Tracker</h1>
-      <CandidateForm onCreated={() => setReloadKey((k) => k + 1)} />
-      <FilterBar filters={filters} onChange={setFilters} />
-      {error && <p role="alert">{error}</p>}
-      {candidates.length === 0 ? (
-        <p>No candidates match.</p>
-      ) : (
-        <ul>
-          {candidates.map((c) => (
-            <li key={c.id}>
-              {c.name} – {c.roleAppliedFor} ({c.stage}) – added{" "}
-              {new Date(c.createdAt).toLocaleDateString()}
-            </li>
-          ))}
-        </ul>
-      )}
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<p>Select a candidate, or add a new one.</p>} />
+        <Route path="candidates/new" element={<NewCandidatePage />} />
+        <Route path="candidates/:id" element={<CandidateDetailPage />} />
+        <Route path="*" element={<p>Page not found.</p>} />
+      </Route>
+    </Routes>
   );
 }

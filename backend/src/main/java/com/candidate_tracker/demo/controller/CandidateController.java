@@ -33,7 +33,8 @@ public class CandidateController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Candidate create(@Valid @RequestBody CreateCandidateRequest request) {
-        return service.createCandidate(request.name(), request.email(), request.roleAppliedFor(), request.phone(), request.source(), request.resumeText());
+        return service.createCandidate(request.name(), request.email(), request.roleAppliedFor(), 
+        		request.phone(), request.source(), request.resumeText());
     }
     
     @GetMapping("/{id}")
