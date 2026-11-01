@@ -14,7 +14,8 @@ public class Candidate {
     private final String roleAppliedFor;
     private Stage stage = Stage.APPLIED;
     private final List<Note> notes = new ArrayList<>();
-
+    private Instant createdAt = Instant.now();
+    
     public Candidate(String name, String email, String roleAppliedFor) {
         this.name = name;
         this.email = email;
@@ -43,6 +44,14 @@ public class Candidate {
 
     public Stage getStage() {
         return stage;
+    }
+    
+    public Instant getCreatedAt() {
+    	return createdAt;
+    }
+    
+    public void setCreatedAt(Instant time) {
+    	this.createdAt = time;
     }
 
     public void moveTo(Stage newStage) {
