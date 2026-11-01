@@ -3,6 +3,7 @@ import type { FormEvent } from "react";
 import { useNavigate, useParams } from "react-router";
 import { addNote, ApiError, deleteCandidate, getCandidate, moveCandidate } from "../api";
 import { useLayoutContext } from "../layoutContext";
+import SummaryPanel from "./SummaryPanel";
 import { STAGES } from "../types";
 import type { Candidate, Stage } from "../types";
 
@@ -90,63 +91,73 @@ export default function CandidateDetailPage() {
       <h2>{candidate.name}</h2>
       {error && <p role="alert">{error}</p>}
 
-      <dl>
-        <dt>Email</dt>
-        <dd>{candidate.email}</dd>
-        <dt>Phone</dt>
-        <dd>{candidate.phone ?? "—"}</dd>
-        <dt>Role applied for</dt>
-        <dd>{candidate.roleAppliedFor}</dd>
-        <dt>Source</dt>
-        <dd>{candidate.source ?? "—"}</dd>
-        <dt>Added</dt>
-        <dd>{new Date(candidate.createdAt).toLocaleString()}</dd>
-      </dl>
+      <div className="detail-grid">
+        <div>
+          <dl>
+            <dt>Email</dt>
+            <dd>{candidate.email}</dd>
+            <dt>Phone</dt>
+            <dd>{candidate.phone ?? "—"}</dd>
+            <dt>Role applied for</dt>
+            <dd>{candidate.roleAppliedFor}</dd>
+            <dt>Source</dt>
+            <dd>{candidate.source ?? "—"}</dd>
+            <dt>Added</dt>
+            <dd>{new Date(candidate.createdAt).toLocaleString()}</dd>
+          </dl>
 
-      <label>
-        Stage
-        <select
-          value={candidate.stage}
-          onChange={(e) => handleStageChange(e.target.value as Stage)}
-        >
-          {STAGES.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-      </label>
+          <label>
+            Stage
+            <select
+              value={candidate.stage}
+              onChange={(e) => handleStageChange(e.target.value as Stage)}
+            >
+              {STAGES.map((s) => (
+                <option key={s} value={s}>
+                  {s}
+                </option>
+              ))}
+            </select>
+          </label>
 
-      <h3>Resume or cover letter</h3>
-      {candidate.resumeText ? (
-        <pre style={{ whiteSpace: "pre-wrap" }}>{candidate.resumeText}</pre>
-      ) : (
-        <p>No resume text provided.</p>
-      )}
+          <h3>Resume or cover letter</h3>
+          {candidate.resumeText ? (
+            <pre style={{ whiteSpace: "pre-wrap" }}>{candidate.resumeText}</pre>
+          ) : (
+            <p>No resume text provided.</p>
+          )}
 
-      <h3>Notes</h3>
-      {candidate.notes.length === 0 ? (
-        <p>No notes yet.</p>
-      ) : (
-        <ul>
-          {candidate.notes.map((note, index) => (
-            <li key={index}>
-              <strong>{new Date(note.createdAt).toLocaleString()}</strong>: {note.text}
-            </li>
-          ))}
-        </ul>
-      )}
-      <form onSubmit={handleAddNote}>
-        <label>
-          Add a note
-          <textarea value={noteText} onChange={(e) => setNoteText(e.target.value)} rows={3} />
-        </label>
-        <button type="submit">Add note</button>
-      </form>
+          <h3>Notes</h3>
+          {candidate.notes.length === 0 ? (
+            <p>No notes yet.</p>
+          ) : (
+            <ul>
+              {candidate.notes.map((note, index) => (
+                <li key={index}>
+                  <strong>{new Date(note.createdAt).toLocaleString()}</strong>: {note.text}
+                </li>
+              ))}
+            </ul>
+          )}
+          <form onSubmit={handleAddNote}>
+            <label>
+              Add a note
+              <textarea value={noteText} onChange={(e) => setNoteText(e.target.value)} rows={3} />
+            </label>
+            <button type="submit">Add note</button>
+          </form>
 
-      <button type="button" onClick={handleDelete}>
-        Delete candidate
-      </button>
+          <button type="button" onClick={handleDelete}>
+            Delete candidate
+          </button>
+        </div>
+
+        <SummaryPanel
+          key={candidate.id}
+          candidateId={candidate.id}
+          resumeText={candidate.resumeText}
+        />
+      </div>
     </article>
   );
 }

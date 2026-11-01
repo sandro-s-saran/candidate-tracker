@@ -1,4 +1,4 @@
-import type { Candidate, Stage } from "./types";
+import type { Candidate, Stage, SummaryResult } from "./types";
 
 export type SortField = "DATE_ADDED" | "STAGE";
 
@@ -69,4 +69,8 @@ export function addNote(id: number, text: string): Promise<Candidate> {
 
 export function deleteCandidate(id: number): Promise<void> {
   return request(`/api/candidates/${id}`, { method: "DELETE" });
+}
+
+export function generateSummary(id: number): Promise<SummaryResult> {
+  return request(`/api/candidates/${id}/summary`, { method: "POST" });
 }

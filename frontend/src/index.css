@@ -97,3 +97,22 @@ label textarea {
     border-bottom: 1px solid #ccc;
   }
 }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 1.5rem;
+}
+
+.summary-panel {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  align-self: start;
+}
+
+@media (max-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

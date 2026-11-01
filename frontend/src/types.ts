@@ -18,3 +18,10 @@ export interface Candidate {
   createdAt: string;
   notes: Note[];
 }
+
+export type SummaryStatus = "GENERATED" | "NO_RESUME_TEXT" | "UNAVAILABLE";
+
+export interface SummaryResult {
+  status: SummaryStatus;
+  text: string | null;
+}
