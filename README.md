@@ -19,6 +19,10 @@ Screenshots are in `docs/screenshots/`. The write-up, AI usage log, learning log
 - Node.js (a current LTS version) and npm
 - Git
 
+## Demo Video
+To watch how the application is run, you can watch the youtube video linked below:
+https://youtu.be/1_6_aQJ8S48?si=J_q-hogmOJQ8odmz
+
 ## Run it
 
 You need two terminals, one for the backend and one for the frontend. Open the terminal in the candidate-tracker folder.
@@ -51,7 +55,7 @@ node scripts/seed.mjs
 This adds seven made-up candidates across all stages, including garbled text, a prompt-injection attempt, HTML and script tags, a non-English resume and a candidate with no resume. Data is held in memory, so it disappears when the backend restarts. Run the script again after a restart (restart first if you want a clean list, otherwise everyone is added twice).
 
 **4. Activating AI summary (optional)**
-The summary uses the Google Gemini API. To useit, you must create a `.env` file in the backend folder.
+The summary uses the Google Gemini API. To use it, you must create a `.env` file in the backend folder.
 
 1. Create a key at https://aistudio.google.com/apikey.
 2. Put it in `backend/.env`: `GEMINI_API_KEY=your-key-here`. This file is git-ignored.
