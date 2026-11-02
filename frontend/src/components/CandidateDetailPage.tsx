@@ -88,12 +88,14 @@ export default function CandidateDetailPage() {
 
   return (
     <article>
-      <h2>{candidate.name}</h2>
+      <h2>Candidate Profile</h2>
       {error && <p role="alert">{error}</p>}
 
-      <div className="detail-grid">
-        <div>
+      <div className="profile-grid">
+        <section className="card profile-card" aria-label="Contact details">
           <dl>
+            <dt>Name</dt>
+            <dd>{candidate.name}</dd>
             <dt>Email</dt>
             <dd>{candidate.email}</dd>
             <dt>Phone</dt>
@@ -102,62 +104,82 @@ export default function CandidateDetailPage() {
             <dd>{candidate.roleAppliedFor}</dd>
             <dt>Source</dt>
             <dd>{candidate.source ?? "—"}</dd>
-            <dt>Added</dt>
-            <dd>{new Date(candidate.createdAt).toLocaleString()}</dd>
           </dl>
+        </section>
 
-          <label>
-            Stage
-            <select
-              value={candidate.stage}
-              onChange={(e) => handleStageChange(e.target.value as Stage)}
-            >
-              {STAGES.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </label>
+        <section className="card stage-card" aria-label="Stage and applied date">
+          <div>
+            <label>
+              Stage
+              <select
+                value={candidate.stage}
+                onChange={(e) => handleStageChange(e.target.value as Stage)}
+              >
+                {STAGES.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+          <div className="stage-card-date">
+            <span className="field-label">Applied date</span>
+            <p className="date-value">
+              {new Date(candidate.createdAt).toLocaleDateString(undefined, { dateStyle: "medium" })}
+            </p>
+          </div>
+        </section>
 
-          <h3>Resume or cover letter</h3>
+        <section className="card resume-card" aria-labelledby="resume-heading">
+          <div className="card-header">
+            <h3 id="resume-heading">Resume</h3>
+          </div>
           {candidate.resumeText ? (
             <pre className="resume-box" role="region" aria-label="Resume text" tabIndex={0}>{candidate.resumeText}</pre>
           ) : (
             <p>No resume text provided.</p>
           )}
-
-          <h3>Notes</h3>
-          {candidate.notes.length === 0 ? (
-            <p>No notes yet.</p>
-          ) : (
-            <ul>
-              {candidate.notes.map((note, index) => (
-                <li key={index}>
-                  <strong>{new Date(note.createdAt).toLocaleString()}</strong>: {note.text}
-                </li>
-              ))}
-            </ul>
-          )}
-          <form onSubmit={handleAddNote}>
-            <label>
-              Add a note
-              <textarea value={noteText} onChange={(e) => setNoteText(e.target.value)} rows={3} />
-            </label>
-            <button type="submit">Add note</button>
-          </form>
-
-          <button type="button" onClick={handleDelete}>
-            Delete candidate
-          </button>
-        </div>
+        </section>
 
         <SummaryPanel
           key={candidate.id}
           candidateId={candidate.id}
           resumeText={candidate.resumeText}
         />
+
+        <section className="card notes-card" aria-labelledby="notes-heading">
+          <h3 id="notes-heading">Notes</h3>
+          <div className="notes-layout">
+            <form onSubmit={handleAddNote}>
+              <label>
+                Add a note
+                <textarea value={noteText} onChange={(e) => setNoteText(e.target.value)} rows={3} />
+              </label>
+              <button type="submit">Add note</button>
+            </form>
+
+            <div className="notes-history">
+              <h4 className="field-label">Note history</h4>
+              {candidate.notes.length === 0 ? (
+                <p>No notes yet.</p>
+              ) : (
+                <ul>
+                  {candidate.notes.map((note, index) => (
+                    <li key={index}>
+                      <strong>{new Date(note.createdAt).toLocaleString()}</strong>: {note.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
       </div>
+
+      <button type="button" onClick={handleDelete}>
+        Delete candidate
+      </button>
     </article>
   );
 }

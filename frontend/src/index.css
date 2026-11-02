@@ -307,12 +307,6 @@ dd {
   scrollbar-color: var(--red) var(--white);
 }
 
-.detail-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 2rem;
-}
-
 .summary-panel {
   border: 2px solid var(--red);
   border-radius: 20px;
@@ -362,5 +356,139 @@ dd {
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
+  }
+}
+
+/* ---------- Candidate profile layout ---------- */
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "profile stage"
+    "resume summary"
+    "notes notes";
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  border: 2px solid var(--red);
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.profile-card {
+  grid-area: profile;
+}
+
+.profile-card dl {
+  margin: 0;
+}
+
+.stage-card {
+  grid-area: stage;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.stage-card label {
+  margin: 0;
+}
+
+.stage-card-date {
+  border-left: 2px solid var(--red);
+  padding-left: 1.5rem;
+}
+
+.field-label {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.date-value {
+  margin: 0.35rem 0 0;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+}
+
+.resume-card {
+  grid-area: resume;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-header h3 {
+  margin: 0;
+}
+
+.pane .card-header button {
+  margin-top: 0;
+}
+
+.resume-box {
+  max-height: 12rem;
+  margin: 0;
+}
+
+.summary-panel {
+  grid-area: summary;
+  align-self: stretch;
+}
+
+.notes-card {
+  grid-area: notes;
+}
+
+@media (max-width: 900px) {
+  .profile-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "profile"
+      "stage"
+      "resume"
+      "summary"
+      "notes";
+  }
+}
+
+.notes-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.notes-layout form {
+  max-width: none;
+}
+
+.notes-history h4 {
+  margin: 0 0 0.5rem;
+}
+
+.notes-history ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+@media (max-width: 700px) {
+  .notes-layout {
+    grid-template-columns: 1fr;
   }
 }
