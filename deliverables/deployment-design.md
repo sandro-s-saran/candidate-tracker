@@ -26,9 +26,7 @@ CloudFront (ACM certificate, optional custom domain)
 | Database | RDS PostgreSQL, db.t4g.micro, single-AZ, automated backups | Replaces the in-memory repository. Filtering and sorting suit a relational database. Keeps the same `CandidateRepository` interface, swapped for JPA. DynamoDB would also work and is cheaper at low traffic, but the queries here are relational |
 | Secrets | AWS Secrets Manager | The Gemini API key stays out of the image and the repo, and is injected as an environment variable |
 | AI provider | Gemini on a paid tier, or Amazon Bedrock | The free tier may use content to improve Google's products, which is unacceptable for real resumes. Bedrock would keep resume text inside AWS and under the same data terms as the rest of the system |
-| Delivery | GitHub Actions: build and test, push the image to ECR, deploy to App Runner; build the front end and sync to S3, then invalidate CloudFront | Every change is tested before it ships |
-| Observability | CloudWatch Logs and a few alarms (5xx rate, database CPU, summary failures) | Cheap and enough for a small app |
-| Region | ap-southeast-2 (Sydney) | Lower latency, and candidate data stays in Australia, which matters for privacy obligations |
+
 
 ## Security notes
 
