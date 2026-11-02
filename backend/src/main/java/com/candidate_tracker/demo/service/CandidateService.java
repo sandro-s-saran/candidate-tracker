@@ -37,7 +37,7 @@ public class CandidateService {
 	            Comparator.comparing(Candidate::getCreatedAt).reversed();
 
 	    Comparator<Candidate> order = (sortBy == SortField.STAGE)
-	            ? Comparator.comparing(Candidate::getStage).thenComparing(newestFirst)
+	            ? Comparator.comparing(Candidate::getStage).reversed().thenComparing(newestFirst)
 	            : newestFirst;
 
 	    return cr.findAll().stream()

@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -126,10 +127,11 @@ class CandidateControllerTest {
     @Test
     void listCanBeSortedByStage() throws Exception {
         Candidate ada = createCandidate("Ada Lovelace", "Software Engineer");
-        createCandidate("Grace Hopper", "Data Analyst");
-        service.moveCandidate(ada.getId(), Stage.OFFER);
+        Candidate grace = createCandidate("Grace Hopper", "Data Analyst");
+        service.moveCandidate(grace.getId(), Stage.OFFER);
 
-        mockMvc.perform(get("/api/candidates").param("sortBy", "STAGE"))
+        mockMvc.perform(get("/api/candidates").param("sort", "STAGE"))
+        		.andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("Grace Hopper"))
                 .andExpect(jsonPath("$[1].name").value("Ada Lovelace"));
