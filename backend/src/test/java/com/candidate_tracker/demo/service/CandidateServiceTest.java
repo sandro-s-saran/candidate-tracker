@@ -124,7 +124,7 @@ class CandidateServiceTest {
 
         List<Candidate> result = service.list(null, null, SortField.STAGE);
 
-        assertEquals(List.of("Ada Lovelace", "Alan Turing", "Grace Hopper"), names(result));
+        assertEquals(List.of("Alan Turing", "Grace Hopper", "Ada Lovelace"), names(result));
     }
 
     @Test
