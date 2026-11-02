@@ -1,13 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500&display=swap");
+
 :root {
+  --red: #e90101;
+  --white: #ffffff;
+  --text: #1a1a1a /* change to #1a1a1a if you want black body text */
+  --line: rgba(233, 1, 48, 0.3);
+  --tint: rgba(233, 1, 48, 0.08);
+
+  --font-heading: "Lexend Deca", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Roboto", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Roboto Mono", ui-monospace, Menlo, Consolas, monospace;
+
   color-scheme: light;
-  color: #1a1a1a;
-  background: #fff;
-  font-family: system-ui, sans-serif;
+  color: var(--text);
+  background: var(--white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
+  background: var(--white);
 }
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  margin: 0 0 0.75rem;
+}
+
+h2 {
+  font-size: 1.9rem;
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-top: 1.75rem;
+}
+
+a {
+  color: var(--red);
+}
+
+/* ---------- Page shell ---------- */
 
 .app {
   display: flex;
@@ -16,76 +61,292 @@ body {
 }
 
 .app-header {
-  background: #c8102e;
-  color: #fff;
-  padding: 0.75rem 1rem;
+  background: var(--red);
+  color: var(--white);
+  padding: 1.1rem 2rem;
 }
 
 .app-header h1 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 1.4rem;
 }
 
 .app-body {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 340px 1fr;
   flex: 1;
 }
 
 .sidebar {
-  border-right: 1px solid #ccc;
-  padding: 1rem;
+  border-right: 2px solid var(--red);
+  padding: 1.5rem 1.25rem;
   overflow-y: auto;
 }
 
+.sidebar-title {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
 .pane {
-  padding: 1rem 1.5rem;
+  padding: 2rem;
 }
 
-.candidate-list {
-  list-style: none;
-  padding: 0;
-  margin: 1rem 0 0;
+.pane form {
+  max-width: 24rem;
 }
 
-.candidate-list a {
-  display: block;
-  padding: 0.5rem;
-  border-radius: 6px;
-  text-decoration: none;
-  color: inherit;
-}
-
-.candidate-list a small {
-  display: block;
-  color: #555;
-}
-
-.candidate-list a.active {
-  background: #e5e5e5;
-  font-weight: 600;
-}
-
-.add-button {
-  display: inline-block;
-  margin-top: 0.75rem;
-  padding: 0.4rem 0.8rem;
-  border: 2px solid #1a56db;
-  border-radius: 6px;
-  color: #1a56db;
-  text-decoration: none;
-}
+/* ---------- Forms ---------- */
 
 label {
   display: block;
-  margin: 0.5rem 0;
+  margin: 0.9rem 0;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
 label input,
 label select,
 label textarea {
   display: block;
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+input,
+select,
+textarea {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--white);
+  border: 1.5px solid var(--red);
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--red);
+  opacity: 0.7;
+}
+
+input[type="file"] {
+  border-style: dashed;
+  padding: 0.5rem;
+}
+
+input[type="file"]::file-selector-button {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--red);
+  background: var(--white);
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+}
+
+/* ---------- Buttons ---------- */
+
+button,
+.add-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid var(--red);
+  border-radius: 999px;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+/* Primary: filled red */
+button[type="submit"],
+.add-button {
+  background: var(--red);
+  color: var(--white);
+}
+
+button[type="submit"]:not(:disabled):hover,
+.add-button:hover {
+  background: var(--white);
+  color: var(--red);
+}
+
+/* Secondary: red outline */
+button[type="button"] {
+  background: var(--white);
+  color: var(--red);
+}
+
+button[type="button"]:not(:disabled):hover {
+  background: var(--red);
+  color: var(--white);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pane button {
+  margin-top: 0.75rem;
+}
+
+.add-button {
+  margin: 0.25rem 0 0.5rem;
+}
+
+/* ---------- Sidebar list ---------- */
+
+.candidate-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.candidate-list a {
+  display: block;
+  padding: 0.7rem 0.9rem;
+  border-radius: 14px;
+  color: var(--red);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.candidate-list a:hover {
+  background: var(--tint);
+}
+
+.candidate-list a.active {
+  background: var(--red);
+  color: var(--white);
+}
+
+.candidate-list a small {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
   margin-top: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.stage-pill {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.55rem;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+}
+
+/* ---------- Detail page ---------- */
+
+dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.4rem 1.25rem;
+  margin: 1rem 0 1.5rem;
+}
+
+dt {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  align-self: center;
+}
+
+dd {
+  margin: 0;
+  font-weight: 500;
+}
+
+.pane ul {
+  padding-left: 1.25rem;
+}
+
+.pane li {
+  margin: 0.4rem 0;
+}
+
+.resume-box {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  max-height: 16rem;
+  overflow: auto;
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border: 2px solid var(--red);
+  border-radius: 14px;
+  background: var(--white);
+  scrollbar-color: var(--red) var(--white);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.summary-panel {
+  border: 2px solid var(--red);
+  border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  align-self: start;
+}
+
+.summary-panel h3 {
+  margin-top: 0;
+}
+
+.summary-panel small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+[role="alert"] {
+  border: 2px solid var(--red);
+  border-radius: 12px;
+  padding: 0.6rem 0.9rem;
+  background: var(--tint);
+  font-weight: 500;
+}
+
+[role="status"] {
+  font-style: italic;
+}
+
+/* ---------- Small screens and motion ---------- */
+
+@media (max-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 700px) {
@@ -94,25 +355,12 @@ label textarea {
   }
   .sidebar {
     border-right: 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid var(--line);
   }
 }
 
-.detail-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.5rem;
-}
-
-.summary-panel {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 1rem;
-  align-self: start;
-}
-
-@media (max-width: 900px) {
-  .detail-grid {
-    grid-template-columns: 1fr;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

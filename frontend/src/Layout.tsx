@@ -33,14 +33,15 @@ export default function Layout() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Candidate Management System</h1>
+        <h1>Candidate Tracker</h1>
       </header>
       <div className="app-body">
         <aside className="sidebar" aria-label="Candidates">
           <FilterBar filters={filters} onChange={setFilters} />
           <Link to="/candidates/new" className="add-button">
-            Add candidate
+            Add candidate <span aria-hidden="true">→</span>
           </Link>
+          <h2 className="sidebar-title">Candidates</h2>
           {error && <p role="alert">{error}</p>}
           {candidates.length === 0 ? (
             <p>No candidates match.</p>
@@ -54,7 +55,8 @@ export default function Layout() {
                   >
                     {c.name}
                     <small>
-                      {c.roleAppliedFor} · {c.stage}
+                      {c.roleAppliedFor}
+                      <span className="stage-pill">{c.stage}</span>
                     </small>
                   </NavLink>
                 </li>

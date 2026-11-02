@@ -81,7 +81,7 @@ export default function CandidateForm({ onCreated }: Props) {
         <input type="file" accept=".txt,text/plain" onChange={handleFile} />
       </label>
 
-      <button type="submit">Add candidate</button>
+      <button type="submit">Save candidate</button>
     </form>
   );
 }

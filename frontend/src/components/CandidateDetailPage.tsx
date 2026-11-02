@@ -98,7 +98,7 @@ export default function CandidateDetailPage() {
             <dd>{candidate.email}</dd>
             <dt>Phone</dt>
             <dd>{candidate.phone ?? "—"}</dd>
-            <dt>Role applied for</dt>
+            <dt>Role</dt>
             <dd>{candidate.roleAppliedFor}</dd>
             <dt>Source</dt>
             <dd>{candidate.source ?? "—"}</dd>
@@ -122,7 +122,7 @@ export default function CandidateDetailPage() {
 
           <h3>Resume or cover letter</h3>
           {candidate.resumeText ? (
-            <pre style={{ whiteSpace: "pre-wrap" }}>{candidate.resumeText}</pre>
+            <pre className="resume-box" role="region" aria-label="Resume text" tabIndex={0}>{candidate.resumeText}</pre>
           ) : (
             <p>No resume text provided.</p>
           )}
