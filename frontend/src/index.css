@@ -492,3 +492,73 @@ dd {
     grid-template-columns: 1fr;
   }
 }
+
+/* ---------- Calmer palette: red only for the header, buttons and highlights ---------- */
+
+:root {
+  --text: #1a1a1a;
+  --border: #c9c9c9;
+  --hover: #f2f2f2;
+}
+
+input,
+select,
+textarea {
+  border-color: #767676;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #6b6b6b;
+  opacity: 1;
+}
+
+.sidebar {
+  border-right-color: var(--border);
+}
+
+.candidate-list a {
+  color: var(--text);
+}
+
+.candidate-list a:not(.active):hover {
+  background: var(--hover);
+}
+
+.card,
+.summary-panel,
+.resume-box {
+  border-color: var(--border);
+}
+
+.stage-card-date {
+  border-left-color: var(--border);
+}
+
+.resume-box {
+  scrollbar-color: #8c8c8c var(--white);
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    border-bottom-color: var(--border);
+  }
+}
+
+.candidate-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.candidate-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.stage-pill {
+  flex-shrink: 0;
+  min-width: 5.5rem;
+  text-align: center;
+}

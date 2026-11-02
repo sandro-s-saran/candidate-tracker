@@ -8,7 +8,9 @@ import type { Candidate } from "./types";
 export default function Layout() {
   const [candidates, setCandidates] = useState<Candidate[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const [filters, setFilters] = useState<CandidateFilters>({ sort: "DATE_ADDED" });
+  const [filters, setFilters] = useState<CandidateFilters>({
+    sort: "DATE_ADDED",
+  });
   const [reloadKey, setReloadKey] = useState(0);
 
   const refresh = useCallback(() => setReloadKey((k) => k + 1), []);
@@ -51,13 +53,15 @@ export default function Layout() {
                 <li key={c.id}>
                   <NavLink
                     to={`/candidates/${c.id}`}
-                    className={({ isActive }) => (isActive ? "active" : undefined)}
+                    className={({ isActive }) =>
+                      isActive ? "active" : undefined
+                    }
                   >
-                    {c.name}
-                    <small>
-                      {c.roleAppliedFor}
+                    <span className="candidate-row">
+                      <span className="candidate-name">{c.name}</span>
                       <span className="stage-pill">{c.stage}</span>
-                    </small>
+                    </span>
+                    <small>{c.roleAppliedFor}</small>
                   </NavLink>
                 </li>
               ))}
