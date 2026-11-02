@@ -1,6 +1,6 @@
 # Deployment design (AWS)
 
-I did not deploy the app. This is how I would, on AWS, for a small internal tool. Cost figures are rough estimates from memory, not quotes, and should be checked in the AWS Pricing Calculator.
+This is how I would deploy the application on AWS. Cost figures are rough estimates.
 
 ## Architecture
 
@@ -14,7 +14,6 @@ CloudFront (ACM certificate, optional custom domain)
                     |-- RDS PostgreSQL (private subnets, via VPC connector)
                     |-- Secrets Manager (Gemini API key)
                     |-- Gemini API over the internet (or Amazon Bedrock, see below)
-                    '-- CloudWatch Logs
 ```
 
 ## Components and why
@@ -36,13 +35,12 @@ CloudFront (ACM certificate, optional custom domain)
 
 ## Rough monthly cost (small usage, one environment)
 
-| Item | Estimate (USD) |
+| Item | Estimate (AUD) |
 |---|---|
-| S3 and CloudFront | 1 to 5 |
-| App Runner (about 1 vCPU, 2 GB, low traffic) | 10 to 30 |
-| RDS PostgreSQL db.t4g.micro, 20 GB storage | 15 to 25 |
-| Secrets Manager, ECR, CloudWatch | 3 to 8 |
-| AI usage (a few hundred summaries a month) | 1 to 5 |
-| **Total** | **about 30 to 70 per month** |
+| S3 and CloudFront | 1 to 7 |
+| App Runner (about 1 vCPU, 2 GB, low traffic) | 14 to 43 |
+| RDS PostgreSQL db.t4g.micro, 20 GB storage | 21 to 36 |
+| Secrets Manager, ECR, CloudWatch | 4 to 11 |
+| AI usage (a few hundred summaries a month) | 1 to 7 |
+| **Total** | **about 43 to 100 per month** |
 
-A second environment (staging) would roughly double the database and container lines. Costs drop if the container is paused outside working hours or if the database moves to DynamoDB on-demand.

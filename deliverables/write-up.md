@@ -2,7 +2,7 @@
 
 ## What I built
 
-A candidate tracker with a Java (Spring Boot) REST API and a React (TypeScript, Vite) front end. Candidates can be added, filtered by stage and role, sorted by date added or stage, moved between stages, given append-only timestamped notes, and deleted. Each candidate's page shows an AI-generated summary of their resume in a separate panel.
+For this protoype, I chosea Java (Spring Boot) REST API back end and a React (TypeScript, Vite) front end. Candidates can be added, filtered by stage and role, sorted by date added or stage, moved between stages, given append-only timestamped notes, and deleted. Each candidate's page shows an AI-generated summary of their resume in a separate panel.
 
 ## Design choices
 
@@ -36,7 +36,7 @@ The feature lives in one `summary` package and one front-end component, so it ca
 - **Summaries are generated on demand and not stored,** so each page view costs a provider call and quota. The panel only calls the AI when there is resume text.
 - **Free tier:** Google's terms allow free-tier content to be used to improve its products, so only made-up data is used. A real deployment needs a paid tier or a provider with a data-processing agreement.
 - **Domain objects are returned directly as JSON,** which is quick but exposes internal shape. Separate response objects would be cleaner.
-- **No front-end tests** and no archive feature, to protect the working end-to-end slice.
+- **No front-end tests** and no archive feature, to protect the working end-to-end slice within available development time.
 
 ## What I'd build next
 

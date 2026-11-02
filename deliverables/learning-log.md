@@ -1,13 +1,12 @@
 # Learning log: JUnit 5 and test-driven development
 
-JUnit 5 and test-driven development (TDD) were both new to me for this exercise. I had built a full-stack app before (Rango), but I had never written a test before the code it checks.
+JUnit 5 and test-driven development (TDD) were both new to me for this exercise.
 
 ## What I read and used
 
 - A walkthrough of JUnit 5 basics (`@Test`, assertions, `assertThrows`, `@BeforeEach`) and the red, green, refactor loop.
 - Spring's MockMvc for testing controllers and `MockRestServiceServer` for testing the HTTP client without a network.
 - Java's `java.time.Clock` for time-dependent code.
-- *To add: the official JUnit 5 user guide sections and anything else you actually read.*
 
 ## What confused me
 

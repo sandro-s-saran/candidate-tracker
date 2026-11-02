@@ -21,14 +21,13 @@ Screenshots are in `docs/screenshots/`. The write-up, AI usage log, learning log
 
 ## Run it
 
-You need two terminals, one for the backend and one for the frontend.
+You need two terminals, one for the backend and one for the frontend. Open the terminal in the candidate-tracker folder.
 
 **1. Backend** (API on http://localhost:8080)
 
 ```bash
 cd backend
-cp .env.example .env          # Windows: copy .env.example .env
-./mvnw spring-boot:run        # Windows PowerShell: .\mvnw spring-boot:run
+./mvnw spring-boot:run        # Windows PowerShell: mvnw spring-boot:run
 ```
 
 **2. Frontend** (app on http://localhost:5173)
@@ -43,7 +42,7 @@ Open http://localhost:5173. The Vite dev server forwards `/api` requests to the 
 
 **3. Sample data (optional)**
 
-With the backend running, from the repo root:
+With the backend running, go back to the candidate-tracker directory, and run this:
 
 ```bash
 node scripts/seed.mjs
@@ -51,14 +50,17 @@ node scripts/seed.mjs
 
 This adds seven made-up candidates across all stages, including garbled text, a prompt-injection attempt, HTML and script tags, a non-English resume and a candidate with no resume. Data is held in memory, so it disappears when the backend restarts. Run the script again after a restart (restart first if you want a clean list, otherwise everyone is added twice).
 
-## AI summary setup
-
-The summary uses the Google Gemini API.
+**4. Activating AI summary (optional)**
+The summary uses the Google Gemini API. To useit, you must create a `.env` file in the backend folder.
 
 1. Create a key at https://aistudio.google.com/apikey.
 2. Put it in `backend/.env`: `GEMINI_API_KEY=your-key-here`. This file is git-ignored.
-3. Optional: set `GEMINI_MODEL` in the same file to use a different model (the default is `gemini-3.5-flash-lite`). Check which models your key can use in Google AI Studio.
-4. Restart the backend.
+3. Restart the backend.
+
+The `.env` file should look like this:
+``` bash
+GEMINI_API_KEY=your-key-here
+```
 
 **The app works without a key.** Everything runs and the summary panel simply shows "unavailable".
 
@@ -68,7 +70,7 @@ The summary uses the Google Gemini API.
 
 ```bash
 cd backend
-./mvnw test                   # Windows PowerShell: .\mvnw test
+./mvnw test                   # Windows PowerShell: mvnw test
 ```
 
 Tests cover the domain model, the in-memory repository, the service (filtering, sorting, stage changes, notes, deletion), the REST controllers, and the AI summary module, including bad input (garbled text, injected tags and instructions, very long text, provider failures). The AI tests use a fake text generator and a mock HTTP server, so they need no key and make no network calls.
